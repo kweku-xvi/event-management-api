@@ -19,3 +19,18 @@ def send_verification_email(email, link, username):
             },
         }
     )
+
+
+def send_password_reset_email(email, username, link):
+    client.send_message(
+        message={
+            "to": {
+            "email": email,
+            },
+            "template": "WF7909Y7ZWMNWNNTNNQRHDTBKDF4",
+            "data": {
+            "username": username,
+            "link": link,
+            },
+        }
+    )
