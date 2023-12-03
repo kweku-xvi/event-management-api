@@ -48,4 +48,6 @@ class User(AbstractUser):
             self.id = str(uuid.uuid4())[:8]
         super().save(*args, **kwargs)
 
+    def __str__(self):
+        return self.username
     
