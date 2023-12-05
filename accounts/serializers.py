@@ -62,3 +62,9 @@ class LoginUserSerializer(serializers.Serializer):
             'access':str(refresh.access_token)
         }
         return tokens
+
+
+class UserInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['first_name', 'middle_name', 'last_name']
