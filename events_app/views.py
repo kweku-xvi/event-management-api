@@ -1,5 +1,5 @@
-from .models import Event
-from .serializers import EventSerializer
+from .models import Event, Registration
+from .serializers import EventSerializer, EventRegistrationSerializer
 from accounts.permissions import IsVerified
 from datetime import timedelta
 from django.db.models import Q
@@ -239,4 +239,25 @@ def events_within_next_month_view(request):
                 'message':'Results for events within the next week',
                 'events':serializer.data
             }, status=status.HTTP_200_OK
+        )
+
+
+@api_view(['POST'])
+@permission_classes([IsVerified])
+def register_for_event_view(request, event_id):
+    if request.method == 'POST':
+        now = timezone.now()
+        user = request.user
+        event = get_event(event_id=event_id)
+
+        registration = Registration.objects.create(user=user, event=event)
+
+        serializer = EventRegistrationSerializer(registration)
+
+        return Response(
+            {
+                'success':True, 
+                'message':f"You have successfully registered for '{event.name}'",
+                'details':serializer.data
+            }, status=status.HTTP_201_CREATED
         )
