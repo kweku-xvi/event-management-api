@@ -21,3 +21,11 @@ class Event(models.Model):
     class Meta:
         ordering = ('-created_at',)
 
+
+class Registration(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    date_registered = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.user} has registered for {self.event}'
