@@ -261,5 +261,3 @@ def register_for_event_view(request, event_id):
                 'details':serializer.data
             }, status=status.HTTP_201_CREATED
         )
-
-# todo : ticketing system
